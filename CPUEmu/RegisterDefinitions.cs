@@ -66,12 +66,12 @@ namespace CPUEmu
 
         public void SetHigh()
         {
-            internalRegister |= 0xf0;
+            internalRegister |= 0xff00;
         }
 
         public void SetLow()
         {
-            internalRegister |= 0x0f;
+            internalRegister |= 0x00ff;
         }
         public void Set(ushort n)
         {
@@ -82,17 +82,15 @@ namespace CPUEmu
         {
             ClearHigh();
             ushort temp = n;
-            n <<= 8;
-            n |= 0x0f;
-            internalRegister |= n;
+            temp <<= 8;
+            internalRegister |= temp;
         }
 
         public void SetLow(byte n)
         {
             ClearLow();
             ushort temp = n;
-            temp |= 0xf0;
-            internalRegister |= n;
+            internalRegister |= temp;
         }
 
         public byte GetHigh()
@@ -110,4 +108,14 @@ namespace CPUEmu
             Console.WriteLine(internalRegister.ToString("X"));
         }
     }
+
+    class ProgramCounter : Register16
+    {
+        public void Increment()
+        {
+            internalRegister++;
+        }
+    }
+
+    
 }

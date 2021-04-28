@@ -8,23 +8,37 @@ namespace CPUEmu
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            ushort a = 0xeaff;
-            byte b = (byte)a;
-            Console.WriteLine(b.ToString("X"));
-            b = (byte)(a >> 8);
-            Console.WriteLine(b.ToString("X"));
+            Accumulator a = new Accumulator();
+            a.Set(0xff);
+            stackPointer.Push(a);
+            systemMemory.Write(a, 0xffff);
+            a.Set(0xab);
+            systemMemory.Write(a, 0xfffa);
+            a.Set(0xea);
+            stackPointer.Push(a);
+            a.print();
+            stackPointer.Pull(a);
+            a.print();
+            stackPointer.Pull(a);
+            a.print();
+            systemMemory.Read(a, 0xfffa);
+            a.print();
+            systemMemory.Read(a, 0x00fe);
+            a.print();
 
-            StatusRegister acc = new StatusRegister();
-            acc.Set();
-            acc.ClearZero();
-            acc.print();
-            systemMemory.Write(acc, 0xffff);
-            acc.Set(0xab);
-            systemMemory.Write(acc, 0xfffa);
-            acc.print();
-            systemMemory.Read(acc, 0xffff);
-            acc.print();
+            //statusRegister.print();
+
+            //a.Load(0x00);
+            //a.print();
+            //a.Add(0xea);
+            //a.print();
+
+            //a.AddCarry(0xff);
+            //a.Add(0xff);
+
+            //a.Subtract(0xff);
+
+            //statusRegister.print();
 
         }
     }

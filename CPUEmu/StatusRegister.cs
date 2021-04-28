@@ -4,9 +4,14 @@ using System.Text;
 
 namespace CPUEmu
 {
+    //TODO: Status Register not faithful to the original 6502. Fix this.
+    //TODO: Comment
     class StatusRegister : Register8
     {
-
+        public void print()
+        {
+            Console.WriteLine(Convert.ToString(internalRegister, 2));
+        }
         public StatusRegister(byte n)
         {
             internalRegister = n;
